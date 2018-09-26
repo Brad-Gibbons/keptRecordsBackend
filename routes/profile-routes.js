@@ -18,10 +18,11 @@ router.get('/', authCheck, (req, res) => {
 router.get('/recordlist', authCheck, (req, res) => {
     res.render('recordlist', { user: req.user })
 })
-router.post('/recordlist', authCheck, (req, res) => {
-    recordController.createRecord(req.body)
-        .then(user => res.json(user))
-        .catch(err => res.json(err));
+router.post('/recordlist', (req, res) => {
+    // console.log(req.body, {user: req.user})
+    recordController.createRecord(req.body, {user: req.user})
+        .then(user => res.render('recordlist',{ record: req.body }))
+        .catch(err => res.render('recordlist' ,{ user: req.user }));
 })
 
 module.exports = router;
