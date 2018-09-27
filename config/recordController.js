@@ -2,22 +2,36 @@ const User = require('../models/userModel');
 const Record = require('../models/recordModel');
 
 module.exports = {
-    // findAllRecords: (params) => {
-    //     return new Promise ((resolve, reject) => {
-    //       User.find(params)
-    //         .populate('records')
-    //         .exec((err, records) => {
-    //           if (err) {
-    //             reject(err);
-    //           } else {
-    //             resolve(records);
-    //           }
-    //         })
-    
-        
-    
-    //     })
-    //    },
+    findAllRecords: (params) => {
+        return new Promise ((resolve, reject) => {
+          User.find(params)
+            .populate('records')
+            .exec((err, records) => {
+              if (err) {
+                reject(err);
+              } else {
+                
+                /*
+                   let array = [];
+
+                   let arrayObject = {
+                     data: [datARRAY]
+                   }
+                */
+                // console.log(JSON.stringify(records[0].records))
+                   let fetchedRecords = records[0].records;
+                  //  console.log(fetchedRecords);
+                  // for(let i = 0; i < fetchedRecords.length; i++) {
+                  //   // Loop through items creating objects
+                  //   var RecordList = [];
+                  //   RecordList.push(fetchedRecords[i])
+                  // }
+                resolve(fetchedRecords);
+               
+              }
+            })
+        })
+       },
     //    Create Record
     createRecord: (params, user) => {
         
@@ -44,8 +58,8 @@ module.exports = {
                 // console.log('##################### ITEM TO BE SAVED IN')
                 // console.log(user);
                 console.log(user.records)
-                User.records.push(record);
-                User.save()
+                user.records.push(record);
+                user.save()
                 
                   .then(user => {
                     resolve(record)

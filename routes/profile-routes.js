@@ -16,7 +16,11 @@ router.get('/', authCheck, (req, res) => {
 })
 
 router.get('/recordlist', authCheck, (req, res) => {
-    res.render('recordlist', { user: req.user })
+    // res.render('recordlist', { user: req.user })
+
+    recordController.findAllRecords({})
+    .then(data => res.render('recordlist', {data: data}))
+    .catch(err => res.json(err))
 })
 router.post('/recordlist', (req, res) => {
     // console.log(req.body, {user: req.user})
@@ -25,4 +29,5 @@ router.post('/recordlist', (req, res) => {
         .catch(err => res.render('recordlist' ,{ user: req.user }));
 })
 
+// router.delete('/')
 module.exports = router;

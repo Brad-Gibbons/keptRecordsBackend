@@ -45,25 +45,52 @@
         <ul>
             <li><a href="/">Homepage</a></li>
             <li><a href="/profile">Profile</a></li>
-            <% if(user) { %>
+
             <li><a href="/auth/logout">log out</a></li>
             
-            <% } else { %>
+
                 <li><a href="/auth/login">Login</a></li>
-            <% } %>
+
         </ul>
     </nav>
+  
     <header>
         <h1>Kept Records</h1>
         <h2>Recordlist</h2>
+        <title></title>
     </header>
-    <form action="/profile/recordlist" name="recordlist" method="post">
-        <input type="text" name="artist" placeholder="Artist">
-        <input type="text" name="song" placeholder="Song">
-        <input type="text" name="link" placeholder="Link">
-        <input type="submit" value="Add Record">
-    </form>
     <main>
+            <form action="/profile/recordlist" name="recordlist" method="post">
+                <input type="text" name="artist" placeholder="Artist">
+                <input type="text" name="song" placeholder="Song">
+                <input type="text" name="link" placeholder="Link">
+                <input type="submit" value="Add Record">
+            </form>
+
+            <table class="table table-inverse">
+                    <thead>
+                      <tr>
+                        <th>Artist</th>
+                        <th>Song</th>
+                        <th>Link</th>
+              
+                      </tr>
+                    </thead>
+              
+                    <tbody>
+                            <%for(var i=0; i < data.length; i++) { %>
+                           <tr>
+                    
+                             <td><%= data[i].artistTitle %></td>
+                             <td><%= data[i].songTitle %></td>
+                             <td><%= data[i].link %></td>
+                    
+                    
+                           </tr>
+                        <% } %>
+                          </tbody>
+    
+              </table>
 </main>
 </body>
 </html>
