@@ -1,0 +1,277 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Record List</title>
+    <style>
+      @keyframes fade {
+  0% { opacity: 0; }
+  100% { opacity:  1; }
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url(ibm-plex-mono.woff2), url(ibm-plex-mono.woff);
+}
+
+@font-face {
+  font-family: "Young Serif";
+  src: url(youngserif.woff2), url(youngserif.woff);
+}
+
+body {
+	font-family: "IBM Plex Mono";
+	font-size: 16px;
+	line-height: 1.6;
+	
+	background-color: #b5796e;
+	color: #2a2a2a;
+  overflow-x: hidden;
+}
+
+
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;
+  background-color: #00b98d;
+  color: #ffffff;
+  
+  font-family: "Young Serif";
+  font-size: 24px;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+nav a {
+  color: #ffffff;
+  text-decoration: none;
+  margin: 5px 32px 5px 32px;
+}
+
+main {
+  position: relative;
+  top:-1%;
+  left:-1%;
+  bottom:-1%;
+  z-index: 1;
+  background-color:#b5796e;
+  color:#271e1f;
+  min-height: 100vh;
+  transition: transform 0.5s;
+}
+
+main.open {
+  transform: translate(240px, 0);
+}
+
+a.toggle-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 24px;
+  text-decoration: none;
+  color: #2a2a2a;
+}
+
+a.toggle-nav img {
+  margin: 0 5px 0 0;
+  vertical-align: middle;
+}
+
+section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  
+}
+
+section div {
+  width: 350px;
+}
+
+section div.content {
+  margin: 0px 0 0 100px;
+}
+
+h1 {
+  font-family: "Young Serif";
+	font-size: 48px;
+  line-height: 1.2;
+}
+
+p {
+  margin: 20px 0 20px 0;
+}
+
+a.button {
+  display: inline-block;
+  background-color: #00b98d;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px 15px 10px 10px;
+  border-radius: 3px;
+}
+
+div.slides {
+  height: 475px;
+  position: relative;
+}
+
+div.slides img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: transform 0.5s, box-shadow 0.5s;
+}
+
+div.slides img:first-child {
+  z-index: 1;
+}
+
+div.slides:hover img {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+}
+img {
+  border-radius:5px 5px 5px 5px;
+}
+form {
+  margin: 0 auto;
+  margin-left: 500px;
+}
+table {
+  margin: 50px auto;
+}
+    </style>
+</head>
+
+
+<nav>
+    <ul>
+        <li><a href="/">Homepage</a></li>
+        <li><a href="/profile">Profile</a></li>
+        <li><a href="/auth/logout">log out</a></li>
+        <li><a href="/auth/login">Login</a></li>
+
+    </ul>
+</nav>
+<main>
+	<a href="#" class="toggle-nav">
+  	<img src="menu.svg" id="boxy"> Menu
+  </a>
+<!--   
+  <section>
+  	
+    <div class="slides">
+      <img src="jd.png">
+      <img src="djs.png">
+      <img src="tt.png">
+      <img src="stat.png">
+      <img src="wtc.png">
+    </div> -->
+
+    <!-- <div class="triangle">
+        <div class="angle1"></div>
+        <div class="angle2"></div>
+        <div class="angle3"></div>
+
+        <div class="angle1A"></div>
+        <div class="angle2A"></div>
+        <div class="angle3A"></div>
+    </div> -->
+    
+    <!-- <div class="content">
+      <h1>
+        J-Dilla
+      </h1>
+      <h2>Donuts</h2>
+      <p>
+            Cold-pressed activated charcoal tousled, offal meditation lo-fi ugh narwhal irony single-origin coffee bespoke jean shorts kinfolk flannel sartorial. Pop-up fanny pack direct trade, yr fam whatever helvetica subway tile lumbersexual. Ethical narwhal artisan, selfies man braid umami lyft crucifix before they sold out brooklyn readymade. Fixie keytar thundercats affogato williamsburg taxidermy. Occupy semiotics palo santo man braid sartorial, blog gluten-free everyday carry schlitz
+            
+      </p>
+      <a href="shop.html" class="button">Buy for $30</a>
+    </div> -->
+
+  <!-- </section> -->
+  <div class="form">
+  <form action="/profile/recordlist" name="recordlist" method="post">
+    <label for="artist">Artist</label>
+    <input type="text" name="artist" placeholder="Artist"><br>  
+    <label for="song">Song</label>
+    <input type="text" name="song" placeholder="Song"><br>
+    <label for="link">Link</label>
+    <input type="text" name="link" placeholder="Link"><br>
+    <input type="submit" value="Add Record">
+</form>
+</div>
+<br>
+<div class="list">
+
+<table class="table table-inverse">
+        <thead>
+          <tr>
+            <th>Artist</th>
+            <th>Song</th>
+            <th>Link</th>
+            <th>Delete</th>
+  
+          </tr>
+        </thead>
+  
+        <tbody>
+                <%for(var i=0; i < data.length; i++) { %>
+                    
+               <tr>
+        
+                 <td><%= data[i].artistTitle %></td>
+                 <td><%= data[i].songTitle %></td>
+                 <td><%= data[i].link %></td>
+                 <td>
+                 <form method="POST" action="/profile/recordlist/<%= data[i].id%>?_method=DELETE">
+                    <button type="submit">Delete</button>
+                  </form>
+                </td>
+
+        
+        
+               </tr>
+            <% } %>
+              </tbody>
+
+  </table>
+</div>
+</main>
+
+<!-- <script>
+const toggleTag = document.querySelector("a.toggle-nav")
+const mainTag = document.querySelector("main")
+
+// when i click the toggle tag, toggle a class of open on the main tag
+// and if it's open, make the toggle tag say closed
+// and not, make the toggle tag say open
+toggleTag.addEventListener("click", function () {
+  mainTag.classList.toggle("open")
+  
+  if (mainTag.classList.contains("open")) {
+    toggleTag.innerHTML = `<img src="close.svg"> Close`
+  } else {
+    toggleTag.innerHTML = `<img src="menu.svg"> Menu`
+  }  
+}) -->
+<!-- </script> -->
+
+
+
+
+
+

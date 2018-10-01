@@ -73,17 +73,25 @@
                         <th>Artist</th>
                         <th>Song</th>
                         <th>Link</th>
+                        <th>Delete</th>
               
                       </tr>
                     </thead>
               
                     <tbody>
                             <%for(var i=0; i < data.length; i++) { %>
+                                
                            <tr>
                     
                              <td><%= data[i].artistTitle %></td>
                              <td><%= data[i].songTitle %></td>
                              <td><%= data[i].link %></td>
+                             <td>
+                             <form method="POST" action="/profile/recordlist/<%= data[i].id%>?_method=DELETE">
+                                <button type="submit">Delete</button>
+                              </form>
+                            </td>
+
                     
                     
                            </tr>

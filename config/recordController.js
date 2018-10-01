@@ -2,32 +2,20 @@ const User = require('../models/userModel');
 const Record = require('../models/recordModel');
 
 module.exports = {
-    findAllRecords: (params) => {
+    findAllRecords: (params, id) => {
         return new Promise ((resolve, reject) => {
-          User.find(params)
+          User.findById(id)
             .populate('records')
             .exec((err, records) => {
               if (err) {
                 reject(err);
               } else {
-                
-                /*
-                   let array = [];
-
-                   let arrayObject = {
-                     data: [datARRAY]
-                   }
-                */
-                // console.log(JSON.stringify(records[0].records))
-                   let fetchedRecords = records[0].records;
-                  //  console.log(fetchedRecords);
-                  // for(let i = 0; i < fetchedRecords.length; i++) {
-                  //   // Loop through items creating objects
-                  //   var RecordList = [];
-                  //   RecordList.push(fetchedRecords[i])
-                  // }
+                console.log(records.records)
+                // console.log(params, id)
+                   let fetchedRecords = records.records;
+                //   // console.log(fetchedRecords);
                 resolve(fetchedRecords);
-               
+                // resolve(fetchedRecords);
               }
             })
         })
@@ -53,15 +41,12 @@ module.exports = {
               record
               .save()
               .then(record => {
-                // console.log('##################### ITEM TO BE SAVED')
-                // console.log(record)
-                // console.log('##################### ITEM TO BE SAVED IN')
-                // console.log(user);
-                console.log(user.records)
+               
+      
                 user.records.push(record);
                 user.save()
-                
                   .then(user => {
+                   
                     resolve(record)
                   })
                   .catch(err => {
@@ -79,22 +64,25 @@ module.exports = {
             .catch(err => {
               reject(err)
             });
-    
-    
         })   
-    } 
-
-
-
-
+    },
+    //Delete
+    deleteRecord:  (params) => {
+      return new Promise((resolve, reject) => {
+        console.log(params)
+        Records.findByIdAndRemove(params)
+          .then(() => resolve())
+          .reject((err) => reject(err))
+      })
+      .catch(err => {
+        reject(err)
+      })
+    }
 }
 
 
 
-
-
-
-
+/// GET USER ID FROM PARAMS TO REDIRECT CONCAT ID ON THE END
 
 
 

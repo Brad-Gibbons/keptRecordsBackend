@@ -6,7 +6,9 @@ const mongoose = require('mongoose');
 const keys = require('./config/keys');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const methodOverride = require('method-override')
 const app = express();
+app.use(methodOverride('_method'))
 //View engine
 app.set('view engine', 'ejs');
 
